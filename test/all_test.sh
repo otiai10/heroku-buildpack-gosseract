@@ -1,7 +1,11 @@
 #!/bin/sh
 
 testFooBar() {
-    assertEquals 1 1
+    assertEquals "${FOOBAR}" "1000000"
+}
+
+testHogeFuga() {
+    assertEquals "${HOGEFUGA}" "200000"
 }
 
 testGoCommandExists() {
