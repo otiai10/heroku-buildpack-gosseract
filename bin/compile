@@ -1,0 +1,11 @@
+#!/bin/sh
+
+apt-get update
+
+apt-get install -y git
+apt-get install -y golang
+apt-get install -y libtesseract-dev 
+apt-get install -y libleptonica-dev
+
+export GOPATH=${HOME}/go
+go get -u -v -t github.com/otiai10/gosseract

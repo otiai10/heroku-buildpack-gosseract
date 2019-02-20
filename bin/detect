@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Determines whether to apply this buildpack to an app.
+
+# TODO: implement more details
+echo "THIS IS 'detect' of heroku-buildpack-gosseract"
+
+exit 0
