@@ -1,5 +1,4 @@
 #!/bin/sh
 
 export FOOBAR=1000000
-HOGEFUGA=200000
 
