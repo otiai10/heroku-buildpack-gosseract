@@ -1,14 +1,14 @@
-#!/bin/sh
-
-apt-get update
-
-apt-get install -y git
-apt-get install -y golang
-apt-get install -y libtesseract-dev
-apt-get install -y libleptonica-dev
-
-export GOPATH=${HOME}/go
-go get -u -v -t github.com/otiai10/gosseract
+#!/usr/bin/env bash
+echo "-----> [Bla Bla Bla Bla]"
 
 exit 1
+
+mkdir -p $1/.profile.d
+ENVVARS=$1/.profile.d/build-env.sh
+echo "export FOO=\"${1}\"" >> $ENVVARS
+
+TESSERACT_OCR_DIR=${1}/src/tesseract-ocr
+
+curl https://tesseract-ocr.googlecode.com/files/tesseract-ocr-3.02.eng.tar.gz -o - | tar -xz -C ${1}/src -f -
+echo "export TESSDATA_PREFIX=\"$TESSERACT_OCR_DIR/\"" >> $ENVVARS
 
