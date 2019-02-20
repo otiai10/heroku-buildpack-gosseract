@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 echo "-----> [Bla Bla Bla Bla]"
 
+# Fail intentionally
 exit 1
-
-mkdir -p $1/.profile.d
-ENVVARS=$1/.profile.d/build-env.sh
-echo "export FOO=\"${1}\"" >> $ENVVARS
-
-TESSERACT_OCR_DIR=${1}/src/tesseract-ocr
-
-curl https://tesseract-ocr.googlecode.com/files/tesseract-ocr-3.02.eng.tar.gz -o - | tar -xz -C ${1}/src -f -
-echo "export TESSDATA_PREFIX=\"$TESSERACT_OCR_DIR/\"" >> $ENVVARS
 

@@ -1,9 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-exit 1
-
-# Determines whether to apply this buildpack to an app.
-
-# TODO: implement more details
-echo "THIS IS 'detect' of heroku-buildpack-gosseract"
+echo "DETECTED!!!!!!!!! Let's compile!!!!!!"
 
