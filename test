@@ -1,0 +1,7 @@
+#!/bin/bash
+
+testEquality()
+{
+  assertEquals 1 1
+}
+
