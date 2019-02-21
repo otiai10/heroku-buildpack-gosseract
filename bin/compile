@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
+
 echo "-----> [Bla Bla Bla Bla]"
-
-# Fail intentionally
-exit 1
-
