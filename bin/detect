@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 
-echo "DETECTED!!!!!!!!! Let's compile!!!!!!"
+# This is /bin/detect of heroku-buildpack-gosseract.
+# `bin/detect`: Determines whether to apply this buildpack to an app.
+# See https://devcenter.heroku.com/articles/buildpack-api#bin-detect
 
+cat <<EOF
+TODO: Remove this message after everything works.
+EOF

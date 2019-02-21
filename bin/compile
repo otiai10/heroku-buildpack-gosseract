@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
-echo "-----> [Bla Bla Bla Bla]"
+# This is /bin/detect of heroku-buildpack-gosseract.
+# `bin/compile`: Used to perform the transformation steps on the app.
+# See https://devcenter.heroku.com/articles/buildpack-api#bin-compile
+
+cat <<EOF
+TODO: Remove this message after everything works.
+EOF

@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# This is /bin/release of heroku-buildpack-gosseract.
+# `bin/release`: Provides metadata back to the runtime.
+# See https://devcenter.heroku.com/articles/buildpack-api#bin-release
+
 cat << EOF
 ---
 EOF
