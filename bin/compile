@@ -7,12 +7,12 @@
 # 0) Variable regulations for heroku-buildpack-testrunner, Travis-CI, and Heroku 
 BUILD_DIR=$1
 if [ -z ${BUILD_DIR} ]; then
-    BUILD_DIR=/app/.build
+    BUILD_DIR=${HOME}/.build
     mkdir -p ${BUILD_DIR}
 fi
 CACHE_DIR=$2
 if [ -z ${CACHE_DIR} ]; then
-    CACHE_DIR=/app/.cache
+    CACHE_DIR=${HOME}/.cache
     mkdir -p ${CACHE_DIR}
 fi
 
