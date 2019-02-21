@@ -1,4 +1,6 @@
-# heroku-buildpack-gosseract
+# heroku-buildpack-gosseract [![Build Status](https://travis-ci.org/otiai10/heroku-buildpack-gosseract.svg?branch=master)](https://travis-ci.org/otiai10/heroku-buildpack-gosseract)
+
+Heroku buildpack, on which [gosseract](https://github.com/otiai10/gosseract) works.
 
 # Tests
 
