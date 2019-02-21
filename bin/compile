@@ -49,7 +49,7 @@ for DEB in $(ls -1 ${APT_CACHE_DIR}/archives/*.deb); do
     dpkg -x $DEB ${APT_DESTINATION}
 done
 
-# 4) Set up environment variables to build tesseract from source
+# 4) Set up environment variables to help building tesseract from source
 mkdir -p ${BUILD_DIR}/.profile.d
 cat <<EOF >${BUILD_DIR}/.profile.d/gosseract-apt-packages.sh
 export PATH="\${APT_DESTINATION}|/usr/bin:\$PATH"
