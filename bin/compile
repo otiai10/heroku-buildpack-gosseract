@@ -4,6 +4,61 @@
 # `bin/compile`: Used to perform the transformation steps on the app.
 # See https://devcenter.heroku.com/articles/buildpack-api#bin-compile
 
-cat <<EOF
-TODO: Remove this message after everything works.
+# 0) Variable regulations for heroku-buildpack-testrunner, Travis-CI, and Heroku 
+BUILD_DIR=$1
+if [ -z ${BUILD_DIR} ]; then
+    BUILD_DIR=/app/.build
+    mkdir -p ${BUILD_DIR}
+fi
+CACHE_DIR=$2
+if [ -z ${CACHE_DIR} ]; then
+    CACHE_DIR=/app/.cache
+    mkdir -p ${CACHE_DIR}
+fi
+
+# 1) Set up for apt-get
+#    Thanks to https://github.com/heroku/heroku-buildpack-apt/blob/master/bin/compile
+APT_DESTINATION="${BUILD_DIR}/.apt/dest"
+APT_CACHE_DIR="${CACHE_DIR}/.apt/cache"
+APT_STATE_DIR="${CACHE_DIR}/.apt/state"
+APT_SOURCES_DIR="${CACHE_DIR}/.apt/sources"
+APT_SOURCES="${CACHE_DIR}/.apt/sources/sources.list"
+APT_OPTIONS="-o debug::nolocking=true -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR -o dir::etc::sourcelist=$APT_SOURCES"
+
+rm -rf ${APT_CACHE_DIR}
+rm -rf ${APT_STATE_DIR}
+rm -rf ${APT_SOURCES_DIR}
+
+mkdir -p ${APT_DESTINATION}
+mkdir -p ${APT_CACHE_DIR}/archives/partial
+mkdir -p ${APT_STATE_DIR}/lists/partial
+mkdir -p ${APT_SOURCES_DIR}
+
+# 2) Update packages
+cat "/etc/apt/sources.list" > ${APT_SOURCES}
+apt-get ${APT_OPTIONS} update
+
+apt-get $APT_OPTIONS -y -d install \
+    g++ \
+    autoconf automake libtool pkg-config \
+    libpng-dev libjpeg8-dev libtiff5-dev zlib1g-dev
+
+# 3) Install packages
+for DEB in $(ls -1 ${APT_CACHE_DIR}/archives/*.deb); do
+    echo "Installing $(basename ${DEB})"
+    dpkg -x $DEB ${APT_DESTINATION}
+done
+
+# 4) Set up environment variables to build tesseract from source
+mkdir -p ${BUILD_DIR}/.profile.d
+cat <<EOF >${BUILD_DIR}/.profile.d/gosseract-apt-packages.sh
+export PATH="\${APT_DESTINATION}|/usr/bin:\$PATH"
+export LD_LIBRARY_PATH="\${APT_DESTINATION}|/usr/lib/x86_64-linux-gnu:\${APT_DESTINATION}|/usr/lib/i386-linux-gnu:\${APT_DESTINATION}|/usr/lib:\$LD_LIBRARY_PATH"
+export LIBRARY_PATH="\${APT_DESTINATION}|/usr/lib/x86_64-linux-gnu:\${APT_DESTINATION}|/usr/lib/i386-linux-gnu:\${APT_DESTINATION}|/usr/lib:\$LIBRARY_PATH"
+export INCLUDE_PATH="\${APT_DESTINATION}|/usr/include:\${APT_DESTINATION}|/usr/include/x86_64-linux-gnu:\$INCLUDE_PATH"
+export CPATH="\$INCLUDE_PATH"
+export CPPPATH="\$INCLUDE_PATH"
+export PKG_CONFIG_PATH="\${APT_DESTINATION}|/usr/lib/x86_64-linux-gnu/pkgconfig:\${APT_DESTINATION}|/usr/lib/i386-linux-gnu/pkgconfig:\${APT_DESTINATION}|/usr/lib/pkgconfig:\$PKG_CONFIG_PATH"
 EOF
+source ${BUILD_DIR}/.profile.d/gosseract-apt-packages.sh
+
