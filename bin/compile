@@ -40,8 +40,16 @@ apt-get ${APT_OPTIONS} update
 
 apt-get $APT_OPTIONS -y -d install \
     g++ \
-    autoconf automake libtool pkg-config \
-    libpng-dev libjpeg8-dev libtiff5-dev zlib1g-dev
+    build-essential \
+    autoconf \
+    autoconf-archive \
+    automake \
+    libtool \
+    pkg-config \
+    libpng-dev \
+    libjpeg8-dev \
+    libtiff5-dev \
+    zlib1g-dev
 
 # 3) Install packages
 for DEB in $(ls -1 ${APT_CACHE_DIR}/archives/*.deb); do
@@ -61,3 +69,14 @@ export CPPPATH="\$INCLUDE_PATH"
 export PKG_CONFIG_PATH="${APT_DESTINATION}/usr/lib/x86_64-linux-gnu/pkgconfig:${APT_DESTINATION}/usr/lib/i386-linux-gnu/pkgconfig:${APT_DESTINATION}/usr/lib/pkgconfig:\$PKG_CONFIG_PATH"
 EOF
 source ${BUILD_DIR}/.profile.d/gosseract-apt-packages.sh
+
+# 5) Compile leptonica from source
+LEPTONICA_VERSION=1.70
+mkdir -p ${BUILD_DIR}/leptonica
+cd ${BUILD_DIR}/leptonica
+wget -nv https://github.com/DanBloomberg/leptonica/archive/v${LEPTONICA_VERSION}.tar.gz
+tar -zxf v${LEPTONICA_VERSION}.tar.gz
+cd leptonica-${LEPTONICA_VERSION}
+
+export PERL5LIB=/app/.build/.apt/dest/usr/share/autoconf
+autoreconf -i
