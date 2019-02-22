@@ -38,8 +38,9 @@ mkdir -p ${APT_SOURCES_DIR}
 cat "/etc/apt/sources.list" > ${APT_SOURCES}
 apt-get ${APT_OPTIONS} update
 
-apt-get $APT_OPTIONS -y -d install \
+apt-get ${APT_OPTIONS} -y -d install \
     g++ \
+    autotools-dev libsigsegv2 m4 \
     build-essential \
     autoconf \
     autoconf-archive \
