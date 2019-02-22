@@ -62,8 +62,8 @@ export GOPATH="${HOME}/go"
 
 export PATH="${APT_DESTINATION}/usr/bin:\$GOROOT/bin:\$PATH"
 export LD_LIBRARY_PATH="${APT_DESTINATION}/usr/lib/x86_64-linux-gnu:${APT_DESTINATION}/usr/lib/i386-linux-gnu:${APT_DESTINATION}/usr/lib:\$LD_LIBRARY_PATH"
-export LIBRARY_PATH="${APT_DESTINATION}/usr/lib/x86_64-linux-gnu:${APT_DESTINATION}/usr/lib/i386-linux-gnu:${APT_DESTINATION}/usr/lib:${APT_DESTINATION}/usr/lib/linux:\$LIBRARY_PATH"
-export INCLUDE_PATH="${APT_DESTINATION}/usr/include:${APT_DESTINATION}/usr/include/x86_64-linux-gnu:${APT_DESTINATION}/usr/include/linux:\$INCLUDE_PATH"
+export LIBRARY_PATH="${APT_DESTINATION}/usr/lib:${APT_DESTINATION}/usr/lib/x86_64-linux-gnu:${APT_DESTINATION}/usr/lib/i386-linux-gnu:${APT_DESTINATION}/usr/lib/linux:\$LIBRARY_PATH"
+export INCLUDE_PATH="${APT_DESTINATION}/usr/include:${APT_DESTINATION}/usr/include/x86_64-linux-gnu:${APT_DESTINATION}/usr/include/i386-linux-gnu:${APT_DESTINATION}/usr/include/linux:\$INCLUDE_PATH"
 export CPATH="\$INCLUDE_PATH"
 export CPPPATH="\$INCLUDE_PATH"
 export PKG_CONFIG_PATH="${APT_DESTINATION}/usr/lib/x86_64-linux-gnu/pkgconfig:${APT_DESTINATION}/usr/lib/i386-linux-gnu/pkgconfig:${APT_DESTINATION}/usr/lib/pkgconfig:\$PKG_CONFIG_PATH"
@@ -78,7 +78,5 @@ wget -nv https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
 tar -zxf ./go1.11.5.linux-amd64.tar.gz
 rm ./go1.11.5.linux-amd64.tar.gz
 chmod a+x ${GOROOT}/bin/*
-
-find / -name stdio.h
 
 # go get -v -t github.com/otiai10/gosseract
