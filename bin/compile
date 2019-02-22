@@ -80,4 +80,7 @@ tar -zxf v${LEPTONICA_VERSION}.tar.gz
 cd leptonica-${LEPTONICA_VERSION}
 
 export PERL5LIB=/app/.build/.apt/dest/usr/share/autoconf
+
+mv ${APT_DESTINATION}/usr/bin/aclocal-1.15 ${APT_DESTINATION}/usr/bin/aclocal
+
 autoreconf -i
